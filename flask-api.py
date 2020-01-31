@@ -62,7 +62,11 @@ def test_model(model):
     if(content):
         print(content) # Do your processing
         X_test = pd.DataFrame(content['X'])
-        y_test = pd.Series(content['y'])
+        
+        if('y' in content):
+            y_test = pd.Series(content['y'])
+        else:
+            y_test = None
         
         X_test.columns = X.columns
     else:
@@ -70,14 +74,20 @@ def test_model(model):
         
     preds = model.predict(X_test)
 
-    accuracy = accuracy_score(y_test, preds)
-    print("logistic regression : "+str(accuracy))
-    return json.dumps({
-            'accuracy': accuracy,
-            'prediction': preds.tolist(),
-            'X': (X_test.values.tolist()),
-            'y': (y_test.values.tolist())
-    })
+    response = {
+        'Prediction': preds.tolist(),
+        'X': X_test.values.tolist()
+    }
+
+    if y_test is None:
+        print("Accuracy : unknown")
+    else:
+        accuracy = accuracy_score(y_test, preds)
+        print("Accuracy : "+str(accuracy))
+        response['Accuracy'] = accuracy
+        response['y'] = y_test.values.tolist()
+    
+    return json.dumps(response, sort_keys=True)
 
 @app.route("/")
 def home():
