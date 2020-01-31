@@ -4,6 +4,14 @@ import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)
 import os
 import pickle
 
+# libraries required by pickle file
+from sklearn import preprocessing
+from sklearn.model_selection import train_test_split
+from sklearn import linear_model
+from sklearn.metrics import accuracy_score
+# from xgboost import XGBClassifier
+from sklearn.ensemble import RandomForestClassifier
+
 class PredictorConfig(AppConfig):
     # create path to models
     path = os.path.join(settings.MODELS, 'models.p')

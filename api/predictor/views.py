@@ -21,19 +21,22 @@ class call_model(APIView):
 
 class logisticregression(APIView):
     def get(self, request):
-        #PredictorConfig.logistic_regression.predict()
-        return JsonResponse({'prediction': accuracy})
+
+        #L'idée est là
+        #PredictorConfig.logistic_regression.predict(...)
+
+        return JsonResponse({'prediction': 'nothing'})
 
 class xgboost(APIView):
     def get(self, request):
-        print 'Raw Data: "%s"' % request.body
+        print('Raw Data: "%s"' % request.body)
         obj = json.loads(request.body)
-        print obj['coucou']
+        print(obj['coucou'])
         return JsonResponse({'ok':'alice'})
 
 class randomforest(APIView):
     def get(self, request):
-        print 'Raw Data: "%s"' % request.body
+        print('Raw Data: "%s"' % request.body)
         obj = json.loads(request.body)
-        print obj['coucou']
+        print(obj['coucou'])
         return JsonResponse({'ok':'alice'})
