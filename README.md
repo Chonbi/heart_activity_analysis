@@ -16,10 +16,11 @@ The data used in this project come from https://archive.ics.uci.edu/ml/datasets/
   - /xgboost
 
 You can either call this urls without parameter 
-  -> it will predict one activity take in the dataset randomly
+  - it will predict one activity take in the dataset randomly
+  
 Or you can pass an X and an y (optional) in the request body
-  -> it will predict the activity and calculate the accuracy if y is specified
-  -> example: 
+  - it will predict the activity and calculate the accuracy if y is specified
+  - example: 
 ### request url 
   http://localhost:5000/random_forest
 ### request body
