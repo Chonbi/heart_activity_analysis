@@ -49,9 +49,14 @@ y = main_df['activity']
 X = X.drop(['Unnamed: 0', 'gender', 'age', 'height', 'skin', 'sport', 'weight'], axis=1)
 
 # Scale X
+scaler = preprocessing.StandardScaler()
+scaler.fit(X)
+
 X_columns = X.columns
-X = pd.DataFrame(preprocessing.scale(X))
+X = pd.DataFrame(scaler.transform(X))
 X = X.rename(columns={ i : X_columns[i] for i in range(0, len(X_columns) ) })
+
+
 
 def getXandYrandomly():
     n = random.randint(0, len(y)-1)
@@ -60,15 +65,14 @@ def getXandYrandomly():
 def test_model(model):
     content = request.get_json(silent=True, force=True)
     if(content):
-        print(content) # Do your processing
-        X_test = pd.DataFrame(content['X'])
+        X_test = pd.DataFrame(scaler.transform(content['X']))
+        X_test.columns = X.columns
         
         if('y' in content):
             y_test = pd.Series(content['y'])
         else:
             y_test = None
         
-        X_test.columns = X.columns
     else:
         X_test, y_test = getXandYrandomly()
         
